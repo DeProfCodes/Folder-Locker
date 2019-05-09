@@ -1,0 +1,235 @@
+﻿<Page x:Class="Folder_Locker.Pages.Welcome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Welcome">
+
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="SignUp">
+            <Setter Property="Background" Value="Tomato" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                            CornerRadius="15" 
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Maroon"
+                            BorderThickness="1,1,1,1">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Blue" />
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" BasedOn="{StaticResource SignUp}" x:Key="Login">
+            <Setter Property="Background" Value="Gold" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Green" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="Label" x:Key="labels">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Yu Gothic UI Semibold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Label" BasedOn="{StaticResource labels}" x:Key="labelsBottom">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Blue"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid 
+        x:Name="mainGrid"
+        SizeChanged="Grid_SizeChanged">
+        <Grid.Background>
+            <!--<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF265FB0" Offset="1"/>
+                <GradientStop Color="White" Offset="0.044"/>
+                <GradientStop Color="#FFDFECFF" Offset="0.088"/>
+            </LinearGradientBrush>-->
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF265FB0" Offset="1"/>
+                <GradientStop Color="White" Offset="0.57"/>
+                <GradientStop Color="#FFDFECFF" Offset="0.631"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+    
+        <Menu
+            Grid.Row="0"
+            Grid.Column="0" Grid.ColumnSpan="4"
+            Visibility="Visible">
+
+            <MenuItem Header=" File ">
+                <Label
+                    x:Name="exit_lbl"
+                    Content="Exit" 
+                    MouseDown="MenuItemClick"/>
+
+            </MenuItem>
+
+            <MenuItem Header="Help">
+                <Label
+                    x:Name="howToUse_lbl"
+                    Content="How to use folder lock" 
+                    MouseDown="MenuItemClick"/>
+
+                <Separator />
+                <Label
+                    x:Name="about_lbl"
+                    Content="About Software" 
+                    MouseDown="MenuItemClick"/>
+            </MenuItem>
+
+        </Menu>
+
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image
+                Grid.Column="0"
+                Source="../Resources/Images/Folders/Enabled/folder-lock icon.jpg"
+                x:Name="folderICO"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="200" Height="100" 
+                />
+            
+            <Label
+                Grid.Column="0" Grid.ColumnSpan="3"
+                x:Name="appName"
+                Content="Folder Locker"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Foreground="#FF1036B6"   FontWeight="Bold" FontSize="45"
+                FontFamily="Rockwell Extra Bold"
+                />
+
+            <Image
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                x:Name="companyLogo" Source="/Folder_Locker;component/Resources/Images/Other/Logo1.PNG"
+                Width="100" Height="100" 
+                />
+        </Grid>
+        
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Vertical" VerticalAlignment="Center">
+
+            <Label
+                x:Name="message1_lbl"
+                Style="{DynamicResource labels}"
+                HorizontalContentAlignment="Center" Margin="50,20,50,0">
+                    <TextBlock TextWrapping="Wrap">
+                        Welcome to Folder Lock, This software is made to give you folder security withing your 
+                        computer. Once you register your account you will have the ability to lock and unlock folders
+                        of your choice BUT This PC administrator will always have rights to all folders.
+                        <LineBreak />
+                </TextBlock>
+            </Label>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+                <Label
+                    Style="{DynamicResource labels}"
+                    Content="If you want to learn more about the software, click on HELP above"/>
+                <Label
+                    Style="{DynamicResource labels}"
+                    Content=" If this is the first time use of the Software, please create your new account."/>
+            </StackPanel>
+
+           
+        </StackPanel>
+
+        <StackPanel 
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
+                Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+            <StackPanel
+                    Orientation="Vertical"
+                    Grid.Row="3" 
+                    Grid.Column="0" Grid.ColumnSpan="2">
+
+                <Label
+                        x:Name="message2_lbl"
+                        Style="{DynamicResource labelsBottom}"
+                        Content="Create a new account"/>
+
+                <Button 
+                        x:Name="new_admin"
+                        Content="Sign Up"
+                        Style="{DynamicResource SignUp}"
+                        Click="new_admin_Click"
+                        />
+            </StackPanel>
+
+            <StackPanel
+                    Orientation="Vertical" Margin="15,0,0,0"
+                    >
+
+                <Label
+                        x:Name="message3_lbl"
+                        Style="{DynamicResource labelsBottom}"
+                        Content="Login to existing account"/>
+
+                <Button 
+                        x:Name="login"
+                        Content="Login"
+                        Style="{DynamicResource Login}"
+                        Click="login_Click"
+                        />
+            </StackPanel>
+        </StackPanel>
+        <Label            
+            Content="De.Prof.Codes Development © 2019"
+            x:Name="companyName"
+            Foreground="White"
+            Grid.Row="4" 
+            FontFamily="Yu Gothic UI Semibold"  
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            />
+
+    </Grid>
+</Page>

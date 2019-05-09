@@ -1,0 +1,526 @@
+﻿<Page x:Class="Folder_Locker.Pages.SecureArea"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Folder_Locker.Pages"
+      xmlns:views="clr-namespace:Folder_Locker.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SecureArea">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="labels">
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            
+            <Style TargetType="Label" x:Key="column_Headers">
+                <Setter Property="Background" Value="LightSkyBlue"/>
+            </Style>
+            
+            <Style TargetType="Button" x:Key="buttonsStyle1">
+                <Setter Property="Background" Value="MintCream" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border 
+                            CornerRadius="5" 
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Green"
+                            BorderThickness="1,1,1,1">
+                                <ContentPresenter
+                                x:Name="contentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="YellowGreen" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style TargetType="Image" x:Key="ImageContainer">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Width" Value="75" />
+                <Setter Property="Height" Value="75" />
+            </Style>
+            
+            <Style TargetType="Border" x:Key="borders">
+                <Setter Property="Width" Value="85" />
+                <Setter Property="Height" Value="85" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="Blue" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Green" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style TargetType="Border" x:Key="borders2">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="LightGreen" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style TargetType="Image" x:Key="ImageIcon">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Width" Value="25" />
+                <Setter Property="Height" Value="25" />
+            </Style>
+            
+            <Style TargetType="StackPanel" x:Key="SP1">
+                <Setter Property="Margin" Value="10,0,0,0" />
+                <Setter Property="Orientation" Value="Horizontal" />
+            </Style>
+
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid
+        x:Name="mainGrid"
+        SizeChanged="Grid_SizeChanged">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF265FB0" Offset="1"/>
+                <GradientStop Color="White" Offset="0.57"/>
+                <GradientStop Color="#FFDFECFF" Offset="0.631"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Menu Items -->
+        <Menu
+            Grid.Row="0"
+            Grid.Column="0" Grid.ColumnSpan="4"
+            Visibility="Visible">
+
+            <MenuItem Header=" File ">
+                <Label
+                    x:Name="logout_lbl"
+                    Content="Logout" 
+                    MouseDown="MenuItemClick"/>
+
+                <Label
+                    x:Name="navigateBack_lbl"
+                    Content="Go to Welcome Screen" 
+                    MouseDown="MenuItemClick"/>
+
+                <Separator />
+                <Label
+                    x:Name="exit_lbl"
+                    Content="Exit" 
+                    MouseDown="MenuItemClick"/>
+
+            </MenuItem>
+
+            <MenuItem Header="Help">
+                <Label
+                    x:Name="howToUse_lbl"
+                    Content="How to use folder lock" 
+                    MouseDown="MenuItemClick"/>
+
+                <Separator />
+                <Label
+                    x:Name="about_lbl"
+                    Content="About Software" 
+                    MouseDown="MenuItemClick"/>
+            </MenuItem>
+
+        </Menu>
+
+        <!-- Left Border with profile picture and navigation buttons-->
+        <Border
+            Grid.Column="0"
+            Grid.Row="1" Grid.RowSpan="4">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF6D7AFB" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Profile picture-->
+                <StackPanel
+                    Orientation="Vertical"
+                    Grid.Row="0">
+                    <Ellipse
+                        Margin="10"
+                        Width="120"
+                        Height="120"
+                        x:Name="profile_ico"
+                        Fill="Snow"/>
+
+                    <Button 
+                        x:Name="changeProfilePic"
+                        Style="{DynamicResource buttonsStyle1}"
+                        Content="Change Profile Picture" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top"
+                        Click="changeProfilePic_Click"
+                        />
+                </StackPanel>
+                
+                <!-- Grid with navigation buttons-->
+                <Grid
+                    Grid.Row="1" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        x:Name="Username"
+                        Grid.Row="0"
+                        Content="DeProf Codes"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        FontSize="22" 
+                        Foreground="#FFE627A9"
+                        FontWeight="Bold"
+                        FontFamily="Yu Gothic UI Semibold"/>
+
+                    <Border
+                        Style="{DynamicResource borders2}"
+                        Grid.Row="1"
+                        x:Name="acc_settings"
+                        MouseDown="NavigationItemsClicked">
+                        <StackPanel Style="{StaticResource SP1}">
+                            <Image
+                                Style="{StaticResource ImageIcon}"
+                                x:Name="accSettings_icon"
+                                />
+                            <Label 
+                                Content="Account Settings"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="18" 
+                                Foreground="#FF0A0A0A" 
+                                FontFamily="Yu Gothic UI Semibold"
+                                />
+                        </StackPanel>
+
+                    </Border>
+
+                    <Border
+                        Style="{DynamicResource borders2}"
+                        Grid.Row="2"
+                        x:Name="manage_accs"
+                        MouseDown="NavigationItemsClicked">
+                        <StackPanel Style="{StaticResource SP1}">
+                            <Image
+                                Style="{StaticResource ImageIcon}"
+                                x:Name="manageAcc_icon"
+                                />
+                            <Label 
+                                Content="Manage Accounts"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="18" 
+                                Foreground="#FF0A0A0A" 
+                                FontFamily="Yu Gothic UI Semibold"
+                                />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Style="{DynamicResource borders2}"
+                        Grid.Row="3"
+                        x:Name="remove_acc"
+                        MouseDown="NavigationItemsClicked">
+                        <StackPanel Style="{StaticResource SP1}">
+                            <Image
+                                Style="{StaticResource ImageIcon}"
+                                x:Name="removeAcc_icon"
+                                />
+                            <Label 
+                                Content="Remove Account"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="18" 
+                                Foreground="#FF0A0A0A" 
+                                FontFamily="Yu Gothic UI Semibold"
+                                />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Style="{DynamicResource borders2}"
+                        Grid.Row="4"
+                        x:Name="exit"
+                        MouseDown="NavigationItemsClicked">
+                        <StackPanel Style="{StaticResource SP1}">
+                            <Image
+                                Style="{StaticResource ImageIcon}"
+                                x:Name="exit_icon"
+                                />
+                            <Label 
+                                Content="Exit"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="18" 
+                                Foreground="#FF0A0A0A" 
+                                FontFamily="Yu Gothic UI Semibold"
+                                />
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Right grid with action buttons with the folder list-->
+        <Grid
+            x:Name="subGrid1"
+            Grid.Row="1" Grid.RowSpan="2"
+            Grid.Column="1" Grid.ColumnSpan="3"
+            Margin="20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Top grid with action buttons-->
+            <Grid 
+                Grid.Row="0"
+                Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border
+                    x:Name="add_new_folder"
+                     Grid.Row="0" Grid.Column="0"
+                     Style="{DynamicResource borders}"
+                     MouseDown="Border_MouseDown">
+                    <Image
+                        x:Name="add_newFolder_ico"
+                        Style="{DynamicResource ImageContainer}"   
+                        />
+                </Border>
+
+                <Label
+                    Style="{StaticResource labels}"
+                    Content="Add folder"
+                    Grid.Row="1" Grid.Column="0"
+                    />
+
+                <Border x:Name="remove_folder"
+                     Grid.Row="0" Grid.Column="1"
+                     Style="{DynamicResource borders}"
+                     MouseDown="Border_MouseDown"
+                     IsEnabled="False">
+                    <Image
+                        x:Name="f_remove_ico"
+                        Style="{DynamicResource ImageContainer}" 
+                        HorizontalAlignment="Right" Margin="0,4,4,4"   
+                        />
+                </Border>
+
+                <Label
+                    Style="{StaticResource labels}"
+                    Content="Remove folder"
+                    Grid.Row="1" Grid.Column="1"
+                    />
+
+                <Border
+                    x:Name="lock_folder"
+                    Grid.Row="0" Grid.Column="2"
+                    Style="{DynamicResource borders}"
+                    MouseDown="Border_MouseDown"
+                    IsEnabled="False">
+                    <Image
+                        x:Name="f_lock_ico"
+                        Style="{DynamicResource ImageContainer}"
+                        />
+                </Border>
+
+                <Label
+                    Style="{StaticResource labels}"
+                    Content="Lock"
+                    Grid.Row="1" Grid.Column="2"
+               
+                    />
+
+                <Border
+                    x:Name="unlock_folder"
+                    Grid.Row="0" Grid.Column="3"
+                    Style="{DynamicResource borders}"
+                    HorizontalAlignment="Left"
+                    MouseDown="Border_MouseDown"
+                    IsEnabled="False">
+                    <Image
+                         x:Name="f_unlock_ico"
+                         Grid.Row="0" Grid.Column="3"
+                         Style="{DynamicResource ImageContainer}"
+                         />
+                </Border>
+
+                <Label
+                    Style="{StaticResource labels}"
+                    Content="Unlock"    Margin="10,0,0,0"
+                    Grid.Row="1" Grid.Column="3"
+                    HorizontalAlignment="Left"
+                    />
+
+            </Grid>
+
+            <!-- Bottom Border with folder list-->
+            <Border
+                Grid.Row="2"
+                Grid.Column="0" Grid.ColumnSpan="7"
+                Margin="20"
+                Background="Snow"
+                CornerRadius="5"
+                BorderThickness="2"
+                BorderBrush="DarkGreen"
+                IsEnabled="True"
+                >
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0" Grid.Column="0"
+                        Content="Folder name"
+                        Style="{StaticResource column_Headers}"
+                        />
+
+                    <Line 
+                        Grid.Row="0" 
+                        Grid.Column="0" 
+                        HorizontalAlignment="Right"
+                        Y1="0" Y2="30"
+                        X1="0" X2="0"
+                        StrokeThickness="1" 
+                        Stroke="Black"
+                        x:Name="line1"
+                        Margin="0,0,5.5,0"
+                        />
+
+                    <Label
+                        Grid.Row="0" Grid.Column="1"
+                        Content="Folder Path"
+                        Style="{StaticResource column_Headers}"
+                        />
+
+                    <Line 
+                        Grid.Row="0" 
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Y1="0" Y2="28"
+                        X1="0" X2="0"
+                        StrokeThickness="1" 
+                        Stroke="Black"
+                        x:Name="line2"
+                        Margin="0,0,11.5,0"
+                        />
+
+                    <Label
+                        Grid.Row="0" Grid.Column="2"
+                        Content="Status"
+                        Style="{StaticResource column_Headers}"
+                        />
+
+                    <ScrollViewer
+                        Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="1">
+                        <views:FolderView 
+                            x:Name="folderViewControl"
+                            Loaded="FolderViewControl_Loaded" 
+                            MouseDown="FolderViewControl_MouseDown"/>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+            
+            <!-- Label that reports any action taken in runtime-->
+            <Label
+                Grid.Row="3" 
+                Grid.Column="0" Grid.ColumnSpan="3"
+                HorizontalAlignment="Center"
+                FontSize="15"
+                FontWeight="Bold"
+                Foreground="Yellow"
+                Visibility="Visible"
+                x:Name="operationStatus"
+                Content="Operation status Here"
+                />
+        </Grid>
+
+        <!-- Bottom label with company trademark name-->
+        <Label            
+            Content="De.Prof.Codes Development © 2019"
+            x:Name="companyName"
+            Foreground="White"
+            Grid.Column="2" Grid.ColumnSpan="2" 
+            Grid.Row="4" 
+            FontFamily="Yu Gothic UI Semibold"  
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            />
+    </Grid>
+</Page>
